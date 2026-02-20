@@ -1,0 +1,17 @@
+{
+    "name": "Ruby Development Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rebornix.ruby",
+                "castwide.solargraph",
+                "misogi.ruby-rubocop"
+            ]
+        }
+    },
+    "postCreateCommand": "ruby --version && gem --version && bundler --version",
+    "remoteUser": "vscode"
+}
