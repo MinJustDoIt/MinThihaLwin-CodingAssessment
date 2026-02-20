@@ -1,10 +1,23 @@
 class People {
+    // Class names should generally be singlur (eg., 'Person' instead of 'People')
     static #Under16 = new Date(Date.now() - (15 * 365 * 24 * 60 * 60 * 1000));
+    // Could we rename this to #UNDER_16? Since it is a static constant and using SCREAMING_SNAKE_CASE(alongside the mandatory # private prefix)
+    // It is better align with JS conventions for fixed internal values.
     Name;
     DOB;
+    // Just a heads up on standard JS Conventions: we usually stick to a camelCase for properties, so 'name' and 'dob' instead of 'Name' and 'DOB'.
+
 
     constructor(name, dob) 
     {
+        /** Instead of this if/else block, we can just use ES6 default parameter right in the constructor.
+            Example: 
+                   constructor(name, dob = People.#Under16) {
+                        this.Name = name;
+                        this.DOB = dob;
+                        } 
+        */
+
         if (dob === undefined) {
             this.Name = name;
             this.DOB = People.#Under16;
@@ -17,6 +30,7 @@ class People {
 
 class BirthingUnit {
     // MaxItemsToRetrieve
+    // Is it a wrong comment? It doesn't really match the #people array. I would just delete it to keep things tidy.
     #people;
 
     constructor() {
@@ -26,24 +40,42 @@ class BirthingUnit {
     // GetPeoples
     // @param j
     // @returns Array<object>
+    /**A couple of minor things here: method names should be carmalCase "getPeople". also param is 'i' instead of 'j'.
+     If you want more descriptive, you can give 'count' instead of 'i' anyway.*/
     GetPeople(i) 
     {
         for (let j = 0; j < i; j++) {
             try 
             {
-                // Creates a dandon Name
+                // Creates a dandon Name  
+                // Typo at comment: "random"
                 let name = "";
+
+                // We're declaring 'random' here but never actually using it anywhere. Let's remove it.
                 let random = Math.random();
+
+                /** That's a math bug: Math.floor(Math.random() * 1) will always return 0.
+                    It means that else block is dead code and we are just going generate an army of Bobs!
+                    A quick 'Math.random() < 0.5' will give you that equally likely outcome (50/50).
+                */
                 if (Math.floor(Math.random() * 1) == 0) {
                     name = "Bob";
                 }
                 else { name = "Betty"; }
                 // Adds new people to the list
+                /**
+                    This line is doing a lot of heavy lifting. This is violating DRY principle as we are repeating this long date-math logic
+                    here, up in #Under16, and down in #GetBobs.
+                    Let's abstract this into a helper method. Plus, that'll fix the typo where we multipied by 356 days instead of 365.
+                /*
                 this.#people.push(new People(name, new Date(Date.now() - (Math.floor(Math.random() * (85 - 18) + 18) * 356 * 24 * 60 * 60 * 1000))));
             }
             catch (e) 
             {
                 // Dont think this should ever happen
+                /** Yes, You're right, it shouldn't! There's nothing in the try block that naturally throws an error. 
+                    We can safely remove try/catch block entirely to clean up nesting.
+                */
                 throw new Error("Something failed in user creation");
             }
         }
@@ -51,6 +83,19 @@ class BirthingUnit {
     }
 
     #GetBobs(olderThan30) {
+    /** 
+        We can DRY this up by doing the filter once instead of writing the ternary operator around two separate filter calls.
+        Also, careful with the logic: x.DOB >= (30 years ago) actually grabs people born after that date, making them younger than 30.
+        So, you will want <= here.
+        For Example:
+            const thirtYearsAgo = new Date(Date.now() - (30 * 356 * 24 * 60 * 60 * 1000));
+
+            retrun this.#people.filter(x =>
+                // Always check if they are Bob, then condionally check the age requirrment
+                x.Name === "Bob" && (!olderThan30 || x.DOB <= thirtYearsAgo)
+            );
+    */
+
         return olderThan30 ? this.#people.filter(x => x.Name == "Bob" && x.DOB >= new Date(Date.now() - (30 * 356 * 24 * 60 * 60 * 1000))) : this.#people.filter(x => x.Name == "Bob");
     }
 
@@ -58,12 +103,39 @@ class BirthingUnit {
     {
         if (lastName.includes("test"))
             return p.Name;
+        /**
+            'p.Name.length' is a number, so this creates a string like "4Johny" and breaks the length check.
+            Let's just check the length of the actual full name instead!
+        */
         if ((p.Name.length + lastName).length > 255) {
+            /** substring() creates a new string but doesn't save it.
+                We need to add 'return' to the front of this line so it actually outputs the truncated name.
+            /*    
             (p.Name + " " + lastName).substring(0, 255);
         }
 
+        /** If we follow DRY, we can create a 'const fullName = p.Name + " " + lastName;' at the top of the method 
+            and we can reuse that variable everywhere to keep it clean.
+        */
         return p.Name + " " + lastName;
     }
 }
 
 module.exports = { People, BirthingUnit };
+
+/**
+Reflection:
+
+Most Concerning Code Smell:
+    -Duplicated Code/Magic Number. 
+    -The complex date math(eg., 356*24*60*60*1000) is repeated in mulitple places.
+        This duplication actually caused a widespread bug: using 356 days instead of 365. 
+        Abstracting this logic into a single helper method would make the code accurate, readable and maintain DRY Principle.
+
+Questions for the Original Author:
+    - In "GetMarried()", what is the purpose of checking 'lastName.includes("test")? Is this leftover debug code we can remove?
+    - In the age calculations, you used 356 days instead of 365. Was this a simple typo, or a specific business requirement?
+    - The "try/catch" block in "GetPeople()" doesn't wrap anything that natively throws an error. Can we safely remove it to clean up the code?
+
+
+*
