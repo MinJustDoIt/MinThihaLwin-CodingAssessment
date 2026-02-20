@@ -1,8 +1,9 @@
 class People {
-    // Class names should generally be singlur (eg., 'Person' instead of 'People')
-    static #Under16 = new Date(Date.now() - (15 * 365 * 24 * 60 * 60 * 1000));
-    // Could we rename this to #UNDER_16? Since it is a static constant and using SCREAMING_SNAKE_CASE(alongside the mandatory # private prefix)
-    // It is better align with JS conventions for fixed internal values.
+    /** Class names should generally be singlur (eg., 'Person' instead of 'People')
+        static #Under16 = new Date(Date.now() - (15 * 365 * 24 * 60 * 60 * 1000));
+        Could we rename this to #UNDER_16? Since it is a static constant and using SCREAMING_SNAKE_CASE(alongside the mandatory # private prefix)
+        It is better align with JS conventions for fixed internal values.
+     */
     Name;
     DOB;
     // Just a heads up on standard JS Conventions: we usually stick to a camelCase for properties, so 'name' and 'dob' instead of 'Name' and 'DOB'.
