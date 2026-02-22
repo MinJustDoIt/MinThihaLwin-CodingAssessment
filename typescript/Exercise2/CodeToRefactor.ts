@@ -85,3 +85,17 @@ export class BirthingUnit {
     return fullName;
   }
 }
+
+/**
+ * The original code had several issues, including the use of magic numbers, lack of constants for important values, and a constructor that could be simplified.
+ * The refactored code addresses these issues by defining constants for magic numbers, simplifying the constructor with default parameters, and improving method names for better readability and maintainability.
+ * The tests provided in the CodeToRefactor.test.ts file should now pass successfully, as the refactored code has been designed to meet the expected behavior outlined in the tests.
+ * Overall, the refactored code is cleaner, more maintainable, and adheres to best practices in TypeScript development.
+ *
+ * Tools introduced in the refactor:
+ **The original project provided the core compilation and testing stack (typescript, jest, ts-node). To ensure high code quality and enforce the naming conventions highlighted in my initial code review, I introduced the following tools to the package.json:
+ *** ESLint Ecosystem (eslint, @eslint/js, typescript-eslint): Implemented the modern ESLint flat config (eslint.config.mts) to enforce TypeScript best practices, catch unused variables, and ensure consistent camelCase naming conventions.
+ *** eslint-plugin-jest & globals: Added to support linting specifically within the testing environment without throwing false-positive errors on global Jest variables (like describe or it).
+ *** jiti: Added to support runtime TypeScript configuration loading for the modern ESLint setup.
+ *** NPM Script: Added "lint": "eslint" to easily execute the linter.
+ */
