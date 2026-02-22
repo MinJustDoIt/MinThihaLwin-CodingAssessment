@@ -4,13 +4,13 @@ describe("People - constructor", () => {
   // These tests were FAIL becuase the original code didn't export the namespace, so the test couldn't access the People class.
   // Now These tests should PASS because the code has been updated to export the Review namespace, allowing the test to create instances of the People class and verify their properties.
   it("should create a person with only a name", () => {
-    const person = new Review.People("Alice");
+    const person = new Review.Person("Alice");
     expect(person.Name).toBe("Alice");
   });
 
   it("should create a person with name and DOB", () => {
     const dob = new Date("1990-01-01");
-    const person = new Review.People("Bob", dob);
+    const person = new Review.Person("Bob", dob);
     expect(person.Name).toBe("Bob");
     expect(person.DOB).toEqual(dob);
   });
@@ -61,19 +61,19 @@ describe("BirthingUnit - GetMarried", () => {
   // These tests were FAIL because the original code didn't return the truncated string.
   // Now These tests should PASS because the code has been updated to return the truncated string when the combined name exceeds 255 characters, ensuring that the output is correctly limited to 255 characters.
   it("should concatenate name and lastname with a space", () => {
-    const person = new Review.People("Alice", new Date("1990-01-01"));
+    const person = new Review.Person("Alice", new Date("1990-01-01"));
     const result = birthingUnit.GetMarried(person, "Johnson");
     expect(result).toBe("Alice Johnson");
   });
 
   it('should return original name if lastname contains "test"', () => {
-    const person = new Review.People("Bob", new Date("1990-01-01"));
+    const person = new Review.Person("Bob", new Date("1990-01-01"));
     const result = birthingUnit.GetMarried(person, "test");
     expect(result).toBe("Bob");
   });
 
   it("should truncate combined name to 255 characters", () => {
-    const person = new Review.People("Alice", new Date("1990-01-01"));
+    const person = new Review.Person("Alice", new Date("1990-01-01"));
     const longLastName = "a".repeat(300);
     const result = birthingUnit.GetMarried(person, longLastName);
     expect(result.length).toBeLessThanOrEqual(255);
