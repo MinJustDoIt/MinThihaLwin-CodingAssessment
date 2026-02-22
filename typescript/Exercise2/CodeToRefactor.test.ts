@@ -26,7 +26,7 @@ describe("BirthingUnit - GetPeople", () => {
   // This test was FAIL because the original code always generate "Bob" (bug: Math.floor(Math.random() * 1) === 0 is always true)
   // Now This test should PASS because the code has been fixed to use Math.floor(Math.random() * 2) === 0, which allows for both "Bob" and "Betty" to be generated.
   it('should generate people with either "Bob" or "Betty" names', () => {
-    const people = birthingUnit.GetPeople(50);
+    const people = birthingUnit.getPeople(50);
     const names = people.map((p) => p.Name);
     const hasMultipleNames = new Set(names).size > 1;
     expect(hasMultipleNames).toBe(true);
@@ -38,7 +38,7 @@ describe("BirthingUnit - GetPeople", () => {
   // This test was FAIL because the current code uses 356 days instead of 365, causing incorrect age calculations.
   // Now This test should PASS because the code has been fixed to use 365 days, ensuring that the generated people have realistic ages between 18 and 85 years old.
   it("should create people with realistic ages (18-85 years old", () => {
-    const people = birthingUnit.GetPeople(50);
+    const people = birthingUnit.getPeople(50);
     const now = Date.now();
 
     people.forEach((person) => {

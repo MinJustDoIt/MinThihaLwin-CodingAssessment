@@ -46,15 +46,17 @@ export namespace Review {
     }
 
     // GetPeoples
-    // @param j
-    // @returns Array<object>
-    public GetPeople(i: number): Person[] {
+    // @param i number of people to generate
+    // @returns Array<Person>
+    // I renamed the method to getPeople to follow common naming conventions for methods, and to better reflect that it returns an array of Person objects.
+    public getPeople(i: number): Person[] {
       for (let j = 0; j < i; j++) {
         try {
-          // Creates a dandon Name
+          // Creates a random Name
           let name: string = "";
           let random = Math.random();
-          if (Math.floor(Math.random() * 2) == 0) {
+          if (Math.floor(random * 2) == 0) {
+            // '2' for Bob/Betty choice
             name = "Bob";
           } else {
             name = "Betty";
@@ -65,12 +67,11 @@ export namespace Review {
               name,
               new Date(
                 Date.now() -
-                  Math.floor(Math.random() * (85 - 18) + 18) *
-                    365 *
-                    24 *
-                    60 *
-                    60 *
-                    1000,
+                  Math.floor(
+                    random * (MAX_AGE_FOR_RANDOM - MIN_AGE_FOR_RANDOM) +
+                      MIN_AGE_FOR_RANDOM,
+                  ) *
+                    MS_IN_YEAR,
               ),
             ),
           );
@@ -82,20 +83,21 @@ export namespace Review {
       return this._people;
     }
 
-    private GetBobs(olderThan30: boolean): Person[] {
-      return olderThan30
-        ? this._people.filter(
-            (x) =>
-              x.Name == "Bob" &&
-              x.DOB >= new Date(Date.now() - 30 * 356 * 24 * 60 * 60 * 1000),
-          )
-        : this._people.filter((x) => x.Name == "Bob");
-    }
+    // private GetBobs(olderThan30: boolean): Person[] {
+    //   return olderThan30
+    //     ? this._people.filter(
+    //         (x) =>
+    //           x.Name == "Bob" &&
+    //           x.DOB >= new Date(Date.now() - 30 * 356 * 24 * 60 * 60 * 1000),
+    //       )
+    //     : this._people.filter((x) => x.Name == "Bob");
+    // }
 
     public GetMarried(p: Person, lastName: string): string {
       if (lastName.includes("test")) return p.Name;
-      if ((p.Name.length + lastName).length > 255) {
-        return (p.Name + " " + lastName).substring(0, 255);
+      // Use constant for max married name length
+      if ((p.Name.length + lastName).length > MAX_MARRIED_NAME_LENGTH) {
+        return (p.Name + " " + lastName).substring(0, MAX_MARRIED_NAME_LENGTH);
       }
 
       return p.Name + " " + lastName;
