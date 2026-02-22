@@ -44,11 +44,13 @@ export namespace Review {
     constructor() {
       this._people = [];
     }
-
-    // GetPeoples
-    // @param i number of people to generate
-    // @returns Array<Person>
-    // I renamed the method to getPeople to follow common naming conventions for methods, and to better reflect that it returns an array of Person objects.
+    /**
+     ** GetPeoples
+     ** @param i number of people to generate
+     ** @returns Array<Person>
+     ** Renamed the method to getPeople to follow common naming conventions for methods,
+     ** and to better reflect that it returns an array of Person objects.
+     */
     public getPeople(i: number): Person[] {
       for (let j = 0; j < i; j++) {
         try {
@@ -93,7 +95,8 @@ export namespace Review {
     //     : this._people.filter((x) => x.Name == "Bob");
     // }
 
-    public GetMarried(p: Person, lastName: string): string {
+    // Renamed GetMarried to getMarried to follow common naming conventions for methods, and to better reflect that it returns a string representing the married name.
+    public getMarried(p: Person, lastName: string): string {
       if (lastName.includes("test")) return p.Name;
       // Use constant for max married name length
       if ((p.Name.length + lastName).length > MAX_MARRIED_NAME_LENGTH) {

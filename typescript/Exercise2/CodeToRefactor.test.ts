@@ -62,20 +62,20 @@ describe("BirthingUnit - GetMarried", () => {
   // Now These tests should PASS because the code has been updated to return the truncated string when the combined name exceeds 255 characters, ensuring that the output is correctly limited to 255 characters.
   it("should concatenate name and lastname with a space", () => {
     const person = new Review.Person("Alice", new Date("1990-01-01"));
-    const result = birthingUnit.GetMarried(person, "Johnson");
+    const result = birthingUnit.getMarried(person, "Johnson");
     expect(result).toBe("Alice Johnson");
   });
 
   it('should return original name if lastname contains "test"', () => {
     const person = new Review.Person("Bob", new Date("1990-01-01"));
-    const result = birthingUnit.GetMarried(person, "test");
+    const result = birthingUnit.getMarried(person, "test");
     expect(result).toBe("Bob");
   });
 
   it("should truncate combined name to 255 characters", () => {
     const person = new Review.Person("Alice", new Date("1990-01-01"));
     const longLastName = "a".repeat(300);
-    const result = birthingUnit.GetMarried(person, longLastName);
+    const result = birthingUnit.getMarried(person, longLastName);
     expect(result.length).toBeLessThanOrEqual(255);
   });
 });
