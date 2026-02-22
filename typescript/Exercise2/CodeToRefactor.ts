@@ -5,7 +5,7 @@ const HOURS_IN_DAY = 24;
 const DAYS_IN_YEAR = 365; // For simplicity, ignoring leap years
 const MS_IN_SECOND = 1000;
 
-const MS_IN_YEAR =
+export const MS_IN_YEAR =
   DAYS_IN_YEAR *
   HOURS_IN_DAY *
   MINUTES_IN_HOUR *

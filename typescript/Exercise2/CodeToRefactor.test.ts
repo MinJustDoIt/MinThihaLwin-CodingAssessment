@@ -1,6 +1,6 @@
-import { BirthingUnit, Person } from "./CodeToRefactor";
+import { BirthingUnit, MS_IN_YEAR, Person } from "./CodeToRefactor";
 
-describe("People - constructor", () => {
+describe("Person - constructor", () => {
   // These tests were FAIL becuase the original code didn't export the namespace, so the test couldn't access the People class.
   // Now These tests should PASS because the code has been updated to export the Review namespace, allowing the test to create instances of the People class and verify their properties.
   it("should create a person with only a name", () => {
@@ -43,7 +43,8 @@ describe("BirthingUnit - GetPeople", () => {
 
     people.forEach((person) => {
       const ageInMs = now - person.DOB.getTime();
-      const ageInYears = ageInMs / (365 * 24 * 60 * 60 * 1000);
+
+      const ageInYears = ageInMs / MS_IN_YEAR;
 
       expect(ageInYears).toBeGreaterThanOrEqual(18);
       expect(ageInYears).toBeLessThanOrEqual(85);
