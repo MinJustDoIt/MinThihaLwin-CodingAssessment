@@ -36,7 +36,7 @@ export namespace Review {
           // Creates a dandon Name
           let name: string = "";
           let random = Math.random();
-          if (Math.floor(Math.random() * 1) == 0) {
+          if (Math.floor(Math.random() * 2) == 0) {
             name = "Bob";
           } else {
             name = "Betty";
