@@ -1,4 +1,10 @@
-import { BirthingUnit, MS_IN_YEAR, Person } from "./CodeToRefactor";
+import { BirthingUnit, Person } from "./CodeToRefactor";
+import {
+  MAX_AGE_FOR_RANDOM,
+  MAX_MARRIED_NAME_LENGTH,
+  MIN_AGE_FOR_RANDOM,
+  MS_IN_YEAR,
+} from "./shared/constants";
 
 describe("Person - constructor", () => {
   // These tests were FAIL becuase the original code didn't export the namespace, so the test couldn't access the People class.
@@ -46,8 +52,8 @@ describe("BirthingUnit - GetPeople", () => {
 
       const ageInYears = ageInMs / MS_IN_YEAR;
 
-      expect(ageInYears).toBeGreaterThanOrEqual(18);
-      expect(ageInYears).toBeLessThanOrEqual(85);
+      expect(ageInYears).toBeGreaterThanOrEqual(MIN_AGE_FOR_RANDOM);
+      expect(ageInYears).toBeLessThanOrEqual(MAX_AGE_FOR_RANDOM);
     });
   });
 });
@@ -77,6 +83,6 @@ describe("BirthingUnit - GetMarried", () => {
     const person = new Person("Alice", new Date("1990-01-01"));
     const longLastName = "a".repeat(300);
     const result = birthingUnit.getMarried(person, longLastName);
-    expect(result.length).toBeLessThanOrEqual(255);
+    expect(result.length).toBeLessThanOrEqual(MAX_MARRIED_NAME_LENGTH);
   });
 });

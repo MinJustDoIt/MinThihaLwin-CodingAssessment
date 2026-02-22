@@ -1,21 +1,10 @@
-// Define constraints for magic numnbers
-const SECONDS_IN_MINUTE = 60;
-const MINUTES_IN_HOUR = 60;
-const HOURS_IN_DAY = 24;
-const DAYS_IN_YEAR = 365; // For simplicity, ignoring leap years
-const MS_IN_SECOND = 1000;
-
-export const MS_IN_YEAR =
-  DAYS_IN_YEAR *
-  HOURS_IN_DAY *
-  MINUTES_IN_HOUR *
-  SECONDS_IN_MINUTE *
-  MS_IN_SECOND;
-
-const MIN_AGE_FOR_RANDOM = 18;
-const MAX_AGE_FOR_RANDOM = 85;
-const MAX_MARRIED_NAME_LENGTH = 255;
-const UNDER_16_AGE_YEARS = 15;
+import {
+  UNDER_16_AGE_YEARS,
+  MS_IN_YEAR,
+  MAX_AGE_FOR_RANDOM,
+  MIN_AGE_FOR_RANDOM,
+  MAX_MARRIED_NAME_LENGTH,
+} from "./shared/constants";
 
 // Renamed People to Person to better reflect that it represents a single individual, and to follow common naming conventions for classes.
 export class Person {
