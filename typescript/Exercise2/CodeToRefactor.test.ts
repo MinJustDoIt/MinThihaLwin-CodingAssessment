@@ -14,6 +14,7 @@ describe("People - constructor", () => {
   });
 });
 
+// This test should FAIL because the current code always generate "Bob" (bug: Math.floor(Math.random() * 1) === 0 is always true)
 describe('BirthingUnit - GetPeople', () => {
     let birthingUnit: Review.BirthingUnit;
 
