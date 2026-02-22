@@ -31,4 +31,18 @@ describe('BirthingUnit - GetPeople', () => {
             expect(['Bob', 'Betty']).toContain(name);
         });
     });
+
+    // This test should FAIL because the current code uses 356 days instead of 365, causing incorrect age calculations.
+    it('should create people with realistic ages (18-85 years old', () => {
+        const people = birthingUnit.GetPeople(50);
+        const now = Date.now();
+
+        people.forEach(person => {
+            const ageInMs = now - person.DOB.getTime();
+            const ageInYears = ageInMs / (365 * 24 * 60 * 60 * 1000);
+
+            expect(ageInYears).toBeGreaterThanOrEqual(18);
+            expect(ageInYears).toBeLessThanOrEqual(85);
+        })
+    });
 });
