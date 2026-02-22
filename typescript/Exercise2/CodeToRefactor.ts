@@ -85,25 +85,19 @@ export namespace Review {
       return this._people;
     }
 
-    // private GetBobs(olderThan30: boolean): Person[] {
-    //   return olderThan30
-    //     ? this._people.filter(
-    //         (x) =>
-    //           x.Name == "Bob" &&
-    //           x.DOB >= new Date(Date.now() - 30 * 356 * 24 * 60 * 60 * 1000),
-    //       )
-    //     : this._people.filter((x) => x.Name == "Bob");
-    // }
-
     // Renamed GetMarried to getMarried to follow common naming conventions for methods, and to better reflect that it returns a string representing the married name.
     public getMarried(p: Person, lastName: string): string {
       if (lastName.includes("test")) return p.Name;
+
+      // Use template literals for string concatenation, which is more readable and easier to maintain.
+      const fullName = `${p.Name} ${lastName}`;
+
       // Use constant for max married name length
-      if ((p.Name.length + lastName).length > MAX_MARRIED_NAME_LENGTH) {
-        return (p.Name + " " + lastName).substring(0, MAX_MARRIED_NAME_LENGTH);
+      if (fullName.length > MAX_MARRIED_NAME_LENGTH) {
+        return fullName.substring(0, MAX_MARRIED_NAME_LENGTH);
       }
 
-      return p.Name + " " + lastName;
+      return fullName;
     }
   }
 }
