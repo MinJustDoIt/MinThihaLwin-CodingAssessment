@@ -59,6 +59,7 @@ describe("BirthingUnit - GetMarried", () => {
   });
 
   // These tests were FAIL because the original code didn't return the truncated string.
+  // Now These tests should PASS because the code has been updated to return the truncated string when the combined name exceeds 255 characters, ensuring that the output is correctly limited to 255 characters.
   it("should concatenate name and lastname with a space", () => {
     const person = new Review.People("Alice", new Date("1990-01-01"));
     const result = birthingUnit.GetMarried(person, "Johnson");

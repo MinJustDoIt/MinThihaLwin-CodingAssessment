@@ -77,7 +77,7 @@ export namespace Review {
     public GetMarried(p: People, lastName: string): string {
       if (lastName.includes("test")) return p.Name;
       if ((p.Name.length + lastName).length > 255) {
-        (p.Name + " " + lastName).substring(0, 255);
+        return (p.Name + " " + lastName).substring(0, 255);
       }
 
       return p.Name + " " + lastName;
