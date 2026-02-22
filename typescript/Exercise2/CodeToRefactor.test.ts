@@ -14,7 +14,8 @@ describe("People - constructor", () => {
   });
 });
 
-// This test should FAIL because the current code always generate "Bob" (bug: Math.floor(Math.random() * 1) === 0 is always true)
+// This test was FAIL because the original code always generate "Bob" (bug: Math.floor(Math.random() * 1) === 0 is always true)
+// Now This test should PASS because the code has been fixed to use Math.floor(Math.random() * 2) === 0, which allows for both "Bob" and "Betty" to be generated.
 describe('BirthingUnit - GetPeople', () => {
     let birthingUnit: Review.BirthingUnit;
 
@@ -32,7 +33,8 @@ describe('BirthingUnit - GetPeople', () => {
         });
     });
 
-    // This test should FAIL because the current code uses 356 days instead of 365, causing incorrect age calculations.
+    // This test was FAIL because the current code uses 356 days instead of 365, causing incorrect age calculations.
+    // Now This test should PASS because the code has been fixed to use 365 days, ensuring that the generated people have realistic ages between 18 and 85 years old.
     it('should create people with realistic ages (18-85 years old', () => {
         const people = birthingUnit.GetPeople(50);
         const now = Date.now();
