@@ -1,5 +1,7 @@
 import { Review } from "./CodeToRefactor";
 
+// This test was FAIL becuase the original code didn't export the namespace, so the test couldn't access the People class.
+// Now This test should PASS because the code has been updated to export the Review namespace, allowing the test to create instances of the People class and verify their properties.
 describe("People - constructor", () => {
   it("should create a person with only a name", () => {
     const person = new Review.People("Alice");
