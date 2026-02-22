@@ -1,4 +1,4 @@
-namespace Review 
+export namespace Review 
 {
     export class People {
         private static Under16: Date = new Date(Date.now() - (15 * 365 * 24 * 60 * 60 * 1000));
