@@ -7,34 +7,34 @@ To tackle this greenfield project safely, the work prioritized a strict testing 
 ### Development Environment Setup
 
 - **TypeScript + Node.js**
-	- Chosen for strong static typing.
-	- A card domain benefits from strict enums (`Suit`, `Rank`) to prevent invalid states.
+  - Chosen for strong static typing.
+  - A card domain benefits from strict enums (`Suit`, `Rank`) to prevent invalid states.
 - **Jest**
-	- Required to support the Test-Driven Development (TDD) workflow.
+  - Required to support the Test-Driven Development (TDD) workflow.
 - **ESLint + Prettier**
-	- Added from day one to enforce consistent style and catch issues early (for example: unused variables and implicit `any`).
+  - Added from day one to enforce consistent style and catch issues early (for example: unused variables and implicit `any`).
 
 ### Scaffold / Structure (Clean Architecture)
 
 The solution is organized using Clean Architecture to isolate core game logic from external frameworks:
 
 - `src/domain/`
-	- Pure entities (`Card`, `Deck`) and domain constructs.
-	- No framework or library dependencies.
+  - Pure entities (`Card`, `Deck`) and domain constructs.
+  - No framework or library dependencies.
 - `src/application/`
-	- Business use cases (for example, `ShuffleDeck`).
+  - Business use cases (for example, `ShuffleDeck`).
 - `src/infrastructure/`
-	- Delivery mechanisms and adapters.
-	- Currently includes a CLI adapter, while remaining ready for a future React/Next.js UI without domain changes.
+  - Delivery mechanisms and adapters.
+  - Currently includes a CLI adapter, while remaining ready for a future React/Next.js UI without domain changes.
 
 ### Delivery Pipeline (CI/CD & DevOps)
 
 - **GitHub Actions** (`ci.yml`)
-	- Triggers on pushes and pull requests.
-	- Runs:
-		- `npm ci`
-		- `tsc --noEmit`
-		- `npm run verify` (linting + formatting + tests)
+  - Triggers on pushes and pull requests.
+  - Runs:
+    - `npm ci`
+    - `tsc --noEmit`
+    - `npm run verify` (linting + formatting + tests)
 
 **Reasoning:**
 These checks automate quality gates so code cannot be merged if it breaks the TDD safety net or violates project style standards.
@@ -48,14 +48,14 @@ The foundational structure is fully scaffolded. A future teammate can immediatel
 ### Ready for Hand-off
 
 - **Domain Entities**
-	- Strictly typed `Card` and `Deck` classes.
-	- `Deck` initializes a standard 52-card set reliably.
+  - Strictly typed `Card` and `Deck` classes.
+  - `Deck` initializes a standard 52-card set reliably.
 - **Application Use Cases**
-	- `ShuffleDeck` use case randomizes deck order predictably and safely.
+  - `ShuffleDeck` use case randomizes deck order predictably and safely.
 - **Test Suite**
-	- Jest tests validate domain behavior and shuffle logic.
+  - Jest tests validate domain behavior and shuffle logic.
 - **CLI Demo**
-	- `src/infrastructure/cli/index.ts` demonstrates how outer layers invoke the core application.
+  - `src/infrastructure/cli/index.ts` demonstrates how outer layers invoke the core application.
 
 ---
 
@@ -73,13 +73,13 @@ The application requires shuffling a standard 52-card deck for play against an i
 ### Alternatives Considered
 
 1. **Naive sort-based shuffle** (`array.sort(() => Math.random() - 0.5)`)
-	 - **Rejected** because it is mathematically biased.
-	 - JavaScript sorting algorithms are not intended to produce uniform random permutations.
-	 - This can lead to non-uniform card-position frequency, which may provide exploitable patterns.
+   - **Rejected** because it is mathematically biased.
+   - JavaScript sorting algorithms are not intended to produce uniform random permutations.
+   - This can lead to non-uniform card-position frequency, which may provide exploitable patterns.
 
 2. **External utility library** (for example, `lodash.shuffle`)
-	 - **Rejected** to keep the core lightweight and dependency-free.
-	 - Adds unnecessary coupling for a single operation.
+   - **Rejected** to keep the core lightweight and dependency-free.
+   - Adds unnecessary coupling for a single operation.
 
 ### Decision
 
@@ -100,4 +100,3 @@ This dependency injection keeps the use case deterministic under test and flexib
 - Injecting a randomizer (for example, `() => 0`) makes behavior predictable for tests.
 - Deterministic tests allow strict assertions without flaky CI.
 - This also future-proofs the design: infrastructure can later swap `Math.random()` for a stronger source (for example, cryptographically secure randomness) without changing domain/application logic.
-
