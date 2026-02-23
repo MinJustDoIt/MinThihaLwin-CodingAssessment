@@ -6,10 +6,12 @@ on:
     # # Only run this pipeline if files inside the Exercise3 folder change!
     paths:
       - 'typescript/Exercise3/**'
+      - '.github/workflow/**'
   pull_request:
     # branches: [ "main" ]
     paths:
       - 'typescript/Exercise3/**'
+      - '.github/workflows/**'
 
 jobs:
   build-and-verify:
