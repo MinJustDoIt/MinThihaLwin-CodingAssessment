@@ -15,4 +15,3 @@ const shuffledDeck = shuffler.execute(deck);
 console.log('\n--- Shuffling ---');
 console.log(`Top card AFTER shuffle: ${shuffledDeck.cards[0]?.toString()}`);
 console.log(`Second card AFTER shuffle: ${shuffledDeck.cards[1]?.toString()}`);
-
