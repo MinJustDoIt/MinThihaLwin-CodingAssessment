@@ -9,7 +9,7 @@ on:
   pull_request:
     # branches: [ "main" ]
     paths:
-      - 'typecript/Exercise3/**'
+      - 'typescript/Exercise3/**'
 
 jobs:
   build-and-verify:
