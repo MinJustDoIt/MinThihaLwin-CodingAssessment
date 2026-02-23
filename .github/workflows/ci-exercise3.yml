@@ -3,7 +3,7 @@ name: Exercise 3 CI Pipeline
 on:
   push:
     # branches: [ "main" ]
-    # # Only run this pipeline if files inside the Exercise3 folder change!
+    # # Only run this pipeline if files inside the Exercise3 folder and .github/workflows folder change!
     paths:
       - 'typescript/Exercise3/**'
       - '.github/workflow/**'
@@ -18,7 +18,6 @@ jobs:
     name: Build & Verify (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     
-    # This is the magic line! It tells GitHub to run all 'npm' commands inside your project folder
     defaults:
       run:
         working-directory: ./typescript/Exercise3
