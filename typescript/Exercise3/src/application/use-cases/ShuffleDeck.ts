@@ -18,6 +18,7 @@ export class ShuffleDeck {
     // For simplicity, we will just mutate the copied array and assign it to a new Deck
     const newDeck = new Deck();
     Object.assign(newDeck, { cards: shuffledCards });
+
     return newDeck;
   }
 }
