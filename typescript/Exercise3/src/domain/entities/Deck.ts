@@ -13,7 +13,6 @@ export class Deck {
   private initializeStandardDeck(): void {
     const suits = [Suit.Hearts, Suit.Diamonds, Suit.Clubs, Suit.Spades];
     const ranks = [
-      Rank.Ace,
       Rank.Two,
       Rank.Three,
       Rank.Four,
@@ -26,6 +25,7 @@ export class Deck {
       Rank.Jack,
       Rank.Queen,
       Rank.King,
+      Rank.Ace,
     ];
 
     for (const suit of suits) {

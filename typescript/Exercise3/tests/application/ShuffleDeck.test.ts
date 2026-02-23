@@ -7,12 +7,14 @@ describe('ShuffleDeck Use Case', () => {
     const originalFirstCard = deck.cards[0];
 
     // WE inject a predicatable "random" function to guarantee test consistency
-    const mockRandomizer = () => 0.99;
+    const mockRandomizer = () => 0;
     const shuffleUseCase = new ShuffleDeck(mockRandomizer);
 
     const shuffledDeck = shuffleUseCase.execute(deck);
 
-    // If shuffled correctly with 0.99 the first card should have moved
+    // If shuffled correctly with 0 the first card should have moved
+    console.log('Original first card:', originalFirstCard);
+    console.log('Shuffled first card:', shuffledDeck.cards[0]);
     expect(shuffledDeck.cards[0]).not.toEqual(originalFirstCard);
     expect(shuffledDeck.cards.length).toBe(52); // Ensure no cards are lost during shuffle
   });
